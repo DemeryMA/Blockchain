@@ -65,8 +65,8 @@ class Blockchain(object):
         # TODO: Create the block_string
         block_string = string_object.encode()    
         # TODO: Hash this string using sha256
-        hash_object = hashlib.sha256(block_string)
-        hash_string = hash_object.hexdigest()
+        raw_hash = hashlib.sha256(block_string)
+        hex_hash = raw_hash.hexdigest()
         # By itself, the sha256 function returns the hash in a raw string
         # that will likely include escaped characters.
         # This can be hard to read, but .hexdigest() converts the
@@ -74,7 +74,7 @@ class Blockchain(object):
         # easier to work with and understand
 
         # TODO: Return the hashed block string in hexadecimal format
-        return hash_string
+        return hex_hash
 
     @property
     def last_block(self):
@@ -117,6 +117,8 @@ node_identifier = str(uuid4()).replace('-', '')
 
 # Instantiate the Blockchain
 blockchain = Blockchain()
+print(blockchain.chain)
+print(blockchain.hash(blockchain.last_block))
 
 
 @app.route('/mine', methods=['GET'])
